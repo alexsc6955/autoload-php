@@ -63,7 +63,6 @@ class Autoload
 		$file = $this->_includePath . str_replace('\\', '/', strtolower($relativeClass)) . '.php';
 
 		// if the file exists, require it
-		var_dump(substr($className, $len));
 		if (file_exists($file))
 			require $file;
 		else
