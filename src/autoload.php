@@ -5,17 +5,45 @@ use Exception;
 
 class Autoload
 {
+	/**
+	 * Saves the namespace
+	 *
+	 * @var string
+	 */
 	private $_namespace;
+	/**
+	 * Saves the app path
+	 *
+	 * @var string
+	 */
 	private $_includePath;
+
+	/**
+	 * Assign its relevant value to each property
+	 *
+	 * @param string $ns The namespace to use
+	 * @param string $includePath The path for the namespace
+	 */
 	public function __construct($namespace = null, $includePath = null)
 	{
 		$this->_namespace = $namespace;
 		$this->_includePath = $includePath;
 		$this->register();
 	}
+	/**
+	 * Register this class loader ($this->loadClass) on the SPL autoload stack.
+	 *
+	 * @uses spl_autoload_register()
+	 */
 	private function register(){
 		spl_autoload_register(array($this, 'loadClass'));
 	}
+	/**
+	 * Load the given class or interface.
+	 *
+	 * @param string $className The name for the class to load.
+	 * @return void
+	 */
 	private function loadClass($className)
 	{
 		$len = strlen($this->_namespace);
